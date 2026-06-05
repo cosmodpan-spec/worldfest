@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>World Fest · My Tickets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Special+Elite&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    html { font-size: 110%; scroll-behavior: smooth; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #fdfcf9 0%, #e8ded1 100%); color: #1a1a1a; line-height: 1.45; min-height: 100vh; overflow-x: hidden; }
+    body::after { content: ""; position: fixed; bottom: 0; left: 0; width: 100%; height: 45%; background-image: url('https://i1-c.pinimg.com/1200x/58/59/26/585926a573ff38ba03c86aeda0dd0c73.jpg'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; filter: blur(8px); opacity: 0.4; pointer-events: none; z-index: -2; }
+    .content-wrapper { position: relative; z-index: 2; }
+    .container { max-width: 1540px; margin: 0 auto; padding: 0 6%; }
+    .navbar { position: sticky; top: 0; z-index: 100; background: rgba(253,252,249,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid #e2d9cf; padding: 1rem 0; }
+    .nav-container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .logo-wrapper { display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 32px; height: auto; }
+    .logo { font-family: 'Special Elite', monospace; font-size: 1.6rem; font-weight: 400; letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: #1a1a1a; transition: color 0.2s; }
+    .nav-links a:hover { color: #7e5c43; }
+    .btn { display: inline-block; background: transparent; border: 1px solid #1a1a1a; padding: 0.5rem 1.2rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.5px; color: #1a1a1a; text-decoration: none; transition: all 0.2s ease; cursor: pointer; font-family: 'Inter', sans-serif; border-radius: 40px; }
+    .btn-primary { background: #1a1a1a; border-color: #1a1a1a; color: white; }
+    .btn-primary:hover { background: #2c2c2c; transform: translateY(-2px); }
+    .btn-outline:hover { background: #1a1a1a; color: white; }
+    .filter-btn { background: transparent; border: 1px solid #d4cbc1; padding: 0.4rem 1rem; font-weight: 500; font-size: 0.75rem; cursor: pointer; color: #5c5c5c; border-radius: 40px; }
+    .filter-btn.active, .filter-btn:hover { background: #1a1a1a; border-color: #1a1a1a; color: white; }
+    .hero { padding: 4rem 0 2rem; }
+    .hero h1 { font-family: 'Special Elite', monospace; font-size: clamp(2.4rem,6vw,4.5rem); font-weight: 400; margin-bottom: 0.8rem; }
+    .hero p { color: #5c5c5c; max-width: 760px; }
+    .tickets-switcher { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin: 2rem 0 2.2rem; }
+    .tickets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; margin: 1rem 0 4rem; }
+    .ticket-card { background: #fff; border: 1px solid #e2d9cf; padding: 1.4rem; border-radius: 20px; box-shadow: 0 12px 28px rgba(0,0,0,0.04); }
+    .ticket-card h3 { font-family: 'Special Elite', monospace; font-size: 1.25rem; font-weight: 400; margin-bottom: 0.7rem; }
+    .ticket-meta { color: #5c5c5c; font-size: 0.9rem; margin-bottom: 0.35rem; }
+    .ticket-actions { margin-top: 1rem; display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .empty-state { text-align: center; padding: 3rem 1rem; color: #5c5c5c; border: 1px dashed #d4cbc1; background: rgba(255,255,255,0.55); border-radius: 18px; }
+    footer { background: #fdfaf7; border-top: 1px solid #e2d9cf; padding: 3rem 0 2rem; margin-top: 4rem; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 2rem; }
+    .footer-col a { display: block; color: #5c5c5c; text-decoration: none; font-size: 0.75rem; margin-bottom: 0.6rem; }
+    .copyright { text-align: center; padding-top: 2rem; font-size: 0.7rem; color: #5c5c5c; border-top: 1px solid #e2d9cf; margin-top: 2rem; }
+    .confirm-modal, .manager-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 1100; }
+    .confirm-content, .manager-content { background: white; width: 90%; max-width: 400px; padding: 1.8rem; border-radius: 28px; border: 1px solid #e2d9cf; text-align: center; font-family: 'Inter', sans-serif; }
+    .confirm-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
+    .payment-modal, .login-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .payment-content, .login-content { background: white; width: 90%; max-width: 480px; padding: 2rem; border-radius: 28px; border: 1px solid #e2d9cf; }
+    .close-payment, .close-login { position: absolute; top: 1rem; right: 1.2rem; font-size: 1.8rem; background: none; border: none; cursor: pointer; }
+    .payment-form input, .login-form input { width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ddd2c5; border-radius: 60px; background: #fefaf5; }
+    .error-message { background: #f8d7da; color: #721c24; padding: 0.7rem; border-radius: 60px; margin-bottom: 1rem; text-align: center; }
+    .success-message { background: #d4edda; color: #155724; padding: 1rem; border-radius: 60px; margin-bottom: 1rem; text-align: center; }
+  </style>
+</head>
+<body>
+<div class="content-wrapper">
+  <div class="navbar">
+    <div class="container nav-container">
+      <div class="logo-wrapper"><img class="logo-icon" src="https://www.kindpng.com/picc/m/263-2633413_symbol-of-alathea-sun-drawings-hd-png-download.png" alt="sun" /><div class="logo">WORLDFEST</div></div>
+      <div class="nav-links"><a href="index.html">HOME</a><a href="#">MY TICKETS</a><button class="btn btn-outline" id="loginBtn" style="display:none;">LOGIN</button><button class="btn btn-outline" id="logoutBtn" style="display:none;">LOGOUT</button></div>
+    </div>
+  </div>
+  <main class="container">
+    <section class="hero"><div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:4px; color:#5c5c5c;">Client area</div><h1>My Tickets</h1><p>Manage your booked, purchased or cancelled tickets.</p></section>
+    <div class="tickets-switcher"><button class="filter-btn active" data-tab="booked">Booked</button><button class="filter-btn" data-tab="purchased">Purchased</button><button class="filter-btn" data-tab="cancelled">Cancelled</button></div>
+    <section id="ticketsArea"><div id="bookedSection"></div><div id="purchasedSection" style="display:none;"></div><div id="cancelledSection" style="display:none;"></div></section>
+  </main>
+  <footer><div class="container"><div class="footer-grid"><div class="footer-col"><h4>EXPLORE</h4><a href="#">Festivals</a><a href="#">Lineup</a><a href="#">Passes</a></div><div class="footer-col"><h4>SUPPORT</h4><a href="#">Help Center</a><a href="#">Accessibility</a><a href="#">Health & Safety</a></div><div class="footer-col"><h4>COMPANY</h4><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy Policy</a></div><div class="footer-col"><h4>CONNECT</h4><a href="#">Newsletter</a><a href="#">Instagram</a><a href="#">YouTube</a></div></div><div class="copyright">© 2026 WORLD FEST — Global Festival Guide. All rights reserved.</div></div></footer>
+</div>
+
+<div class="payment-modal" id="paymentModal"><div class="payment-content" style="position:relative;"><button class="close-payment" id="closePaymentBtn">&times;</button><h2 style="font-family:'Special Elite';">Payment</h2><div class="payment-form"><input type="text" id="payFullName" placeholder="Full Name"><input type="tel" id="payPhone" placeholder="Phone"><input type="text" id="cardNumber" placeholder="Card Number" maxlength="19"><div style="display:flex; gap:1rem;"><input type="text" id="cardExpiry" placeholder="MM/YY" style="width:50%;"><input type="text" id="cardCvv" placeholder="CVV" maxlength="4" style="width:50%;"></div><button class="btn btn-primary" id="confirmPaymentBtn">Pay now</button></div><div id="paymentMessage"></div></div></div>
+
+<div class="confirm-modal" id="confirmDeleteModal"><div class="confirm-content"><h3 style="font-family:'Special Elite'; margin-bottom:1rem;">Confirm deletion</h3><p>Are you sure you want to delete this ticket?</p><div class="confirm-actions"><button class="btn btn-outline" id="cancelDeleteBtn">Cancel</button><button class="btn btn-primary" id="confirmDeleteBtn">Delete</button></div></div></div>
+
+<div class="manager-modal" id="managerModal"><div class="manager-content"><i class="fa-solid fa-headset" style="font-size:2rem; color:#7e5c43; margin-bottom:0.8rem;"></i><h3 style="font-family:'Special Elite';">Request received</h3><p style="margin:1rem 0;">In the near future, a manager will contact you regarding ticket cancellation.</p><button class="btn btn-primary" id="closeManagerBtn">OK</button></div></div>
+
+<script>
+  let currentUser = null;
+  let pendingTicketForPayment = null;
+  let pendingDeleteTicketId = null;
+  let deleteSource = null;
+
+  function getUsers() { return JSON.parse(localStorage.getItem('worldfest_users') || '[]'); }
+  function getCurrentUserEmail() { return localStorage.getItem('worldfest_current_user'); }
+  function setCurrentUser(email) { if(email) localStorage.setItem('worldfest_current_user', email); else localStorage.removeItem('worldfest_current_user'); currentUser = email ? { email } : null; updateUI(); }
+  function getTickets() { return JSON.parse(localStorage.getItem('worldfest_tickets') || '[]'); }
+  function saveTickets(tickets) { localStorage.setItem('worldfest_tickets', JSON.stringify(tickets)); }
+  function updateTicketStatus(ticketId, newStatus) { let tickets = getTickets(); const idx = tickets.findIndex(t => t.id === ticketId); if(idx !== -1) { tickets[idx].status = newStatus; saveTickets(tickets); renderCurrentTab(); } }
+
+  function setupPhoneInput(inputEl) { if(!inputEl) return; inputEl.addEventListener('input', function(e) { let val = this.value; if(val === '') return; if(!val.startsWith('+')) val = '+' + val.replace(/[^\d]/g, ''); else { let digits = val.substring(1).replace(/[^\d]/g, ''); val = '+' + digits; } this.value = val; }); }
+  setupPhoneInput(document.getElementById('payPhone'));
+
+  function payTicket(ticketId) { pendingTicketForPayment = ticketId; openPaymentModal(); }
+  function openPaymentModal() { document.getElementById('paymentModal').style.display = 'flex'; document.getElementById('paymentMessage').innerHTML = ''; document.getElementById('payFullName').value = ''; document.getElementById('payPhone').value = ''; document.getElementById('cardNumber').value = ''; document.getElementById('cardExpiry').value = ''; document.getElementById('cardCvv').value = ''; }
+  function closePaymentModal() { document.getElementById('paymentModal').style.display = 'none'; pendingTicketForPayment = null; }
+  document.getElementById('confirmPaymentBtn').onclick = () => { const name = document.getElementById('payFullName').value.trim(); const phone = document.getElementById('payPhone').value.trim(); const card = document.getElementById('cardNumber').value.trim(); const expiry = document.getElementById('cardExpiry').value.trim(); const cvv = document.getElementById('cardCvv').value.trim(); if(!name || !phone || !card || !expiry || !cvv) { document.getElementById('paymentMessage').innerHTML = '<div class="error-message">Please fill all payment fields.</div>'; return; } if(pendingTicketForPayment) { updateTicketStatus(pendingTicketForPayment, 'purchased'); document.getElementById('paymentMessage').innerHTML = '<div class="success-message">Payment successful! Ticket moved to Purchased.</div>'; setTimeout(() => { closePaymentModal(); renderCurrentTab(); }, 1500); } };
+  document.getElementById('closePaymentBtn').onclick = closePaymentModal;
+
+  function confirmDelete(ticketId, source) {
+    pendingDeleteTicketId = ticketId;
+    deleteSource = source;
+    document.getElementById('confirmDeleteModal').style.display = 'flex';
+  }
+
+  document.getElementById('confirmDeleteBtn').onclick = () => {
+    if(pendingDeleteTicketId) {
+      updateTicketStatus(pendingDeleteTicketId, 'cancelled');
+      document.getElementById('confirmDeleteModal').style.display = 'none';
+      if(deleteSource === 'purchased') {
+        document.getElementById('managerModal').style.display = 'flex';
+      }
+      pendingDeleteTicketId = null;
+      deleteSource = null;
+    }
+  };
+  document.getElementById('cancelDeleteBtn').onclick = () => { document.getElementById('confirmDeleteModal').style.display = 'none'; pendingDeleteTicketId = null; deleteSource = null; };
+  document.getElementById('closeManagerBtn').onclick = () => { document.getElementById('managerModal').style.display = 'none'; renderCurrentTab(); };
+  window.onclick = (e) => { if(e.target === document.getElementById('confirmDeleteModal')) document.getElementById('confirmDeleteModal').style.display = 'none'; if(e.target === document.getElementById('managerModal')) document.getElementById('managerModal').style.display = 'none'; if(e.target === document.getElementById('paymentModal')) closePaymentModal(); };
+
+  function renderBooked() {
+    if(!currentUser) return '<div class="empty-state">Please log in to view your tickets.</div>';
+    const tickets = getTickets().filter(t => t.userEmail === currentUser.email && t.status === 'booked');
+    if(!tickets.length) return '<div class="empty-state">No booked tickets.</div>';
+    return `<div class="tickets-grid">${tickets.map(t => `
+      <div class="ticket-card">
+        <h3>${t.festName}</h3>
+        <div class="ticket-meta"><b>Type:</b> ${t.ticketType}</div>
+        <div class="ticket-meta"><b>Price:</b> $${t.price}</div>
+        <div class="ticket-meta"><b>Name:</b> ${t.fullName}</div>
+        <div class="ticket-meta"><b>Phone:</b> ${t.phone}</div>
+        <div class="ticket-actions">
+          <button class="btn btn-outline" onclick="payTicket('${t.id}')">Pay</button>
+          <button class="btn btn-outline" onclick="confirmDelete('${t.id}', 'booked')">Delete (cancel)</button>
+        </div>
+      </div>
+    `).join('')}</div>`;
+  }
+
+  function renderPurchased() {
+    if(!currentUser) return '<div class="empty-state">Please log in.</div>';
+    const tickets = getTickets().filter(t => t.userEmail === currentUser.email && t.status === 'purchased');
+    if(!tickets.length) return '<div class="empty-state">No purchased tickets.</div>';
+    return `<div class="tickets-grid">${tickets.map(t => `
+      <div class="ticket-card">
+        <h3>${t.festName}</h3>
+        <div class="ticket-meta"><b>Type:</b> ${t.ticketType}</div>
+        <div class="ticket-meta"><b>Price:</b> $${t.price}</div>
+        <div class="ticket-meta"><b>Paid by:</b> ${t.fullName}</div>
+        <div class="ticket-actions">
+          <button class="btn btn-outline" onclick="confirmDelete('${t.id}', 'purchased')">Delete ticket</button>
+        </div>
+      </div>
+    `).join('')}</div>`;
+  }
+
+  function renderCancelled() {
+    if(!currentUser) return '<div class="empty-state">Please log in.</div>';
+    const tickets = getTickets().filter(t => t.userEmail === currentUser.email && t.status === 'cancelled');
+    if(!tickets.length) return '<div class="empty-state">No cancelled tickets.</div>';
+    return `<div class="tickets-grid">${tickets.map(t => `
+      <div class="ticket-card">
+        <h3>${t.festName}</h3>
+        <div class="ticket-meta"><b>Type:</b> ${t.ticketType}</div>
+        <div class="ticket-meta"><b>Price:</b> $${t.price}</div>
+        <div class="ticket-meta"><b>Cancelled on:</b> ${new Date().toLocaleDateString()}</div>
+      </div>
+    `).join('')}</div>`;
+  }
+
+  let currentTab = 'booked';
+  function renderCurrentTab() {
+    if(currentTab === 'booked') document.getElementById('bookedSection').innerHTML = renderBooked();
+    else if(currentTab === 'purchased') document.getElementById('purchasedSection').innerHTML = renderPurchased();
+    else document.getElementById('cancelledSection').innerHTML = renderCancelled();
+  }
+  function showTab(tab) {
+    currentTab = tab;
+    document.getElementById('bookedSection').style.display = tab === 'booked' ? 'block' : 'none';
+    document.getElementById('purchasedSection').style.display = tab === 'purchased' ? 'block' : 'none';
+    document.getElementById('cancelledSection').style.display = tab === 'cancelled' ? 'block' : 'none';
+    renderCurrentTab();
+  }
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      showTab(btn.dataset.tab);
+    });
+  });
+
+  function updateUI() {
+    const email = getCurrentUserEmail();
+    currentUser = email ? { email } : null;
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    if(currentUser) {
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'inline-block';
+      logoutBtn.innerText = `LOGOUT (${currentUser.email})`;
+      renderCurrentTab();
+    } else {
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
+      document.getElementById('bookedSection').innerHTML = '<div class="empty-state">Please log in to view your tickets.</div>';
+      document.getElementById('purchasedSection').innerHTML = '';
+      document.getElementById('cancelledSection').innerHTML = '';
+    }
+  }
+  document.getElementById('loginBtn').onclick = () => { window.location.href = 'index.html'; };
+  document.getElementById('logoutBtn').onclick = () => { localStorage.removeItem('worldfest_current_user'); updateUI(); alert('Logged out.'); };
+  updateUI();
+  showTab('booked');
+
+  window.payTicket = payTicket;
+  window.confirmDelete = confirmDelete;
+</script>
+</body>
+</html>

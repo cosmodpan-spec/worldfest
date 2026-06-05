@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>World Fest · Global Festival Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Special+Elite&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    html { font-size: 110%; scroll-behavior: smooth; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: linear-gradient(180deg, #fdfcf9 0%, #e8ded1 100%); color: #1a1a1a; line-height: 1.45; min-height: 100vh; overflow-x: hidden; }
+    body::after { content: ""; position: fixed; bottom: 0; left: 0; width: 100%; height: 45%; background-image: url('https://i1-c.pinimg.com/1200x/58/59/26/585926a573ff38ba03c86aeda0dd0c73.jpg'); background-size: cover; background-position: center bottom; background-repeat: no-repeat; filter: blur(8px); opacity: 0.4; pointer-events: none; z-index: -2; }
+    .content-wrapper { position: relative; background: transparent; z-index: 2; }
+    .container { max-width: 1540px; margin: 0 auto; padding: 0 6%; }
+    .torn-edge { clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 95% 90%, 88% 86%, 82% 92%, 74% 88%, 68% 93%, 60% 87%, 52% 91%, 46% 86%, 38% 92%, 30% 87%, 22% 91%, 14% 88%, 6% 93%, 0% 90%); }
+    .torn-card-promo { clip-path: polygon(0% 1%, 3% 0.5%, 7% 2%, 12% 0%, 18% 1.5%, 23% 0%, 29% 2%, 34% 0.5%, 40% 1%, 45% 0%, 51% 2%, 57% 0.5%, 62% 1%, 68% 0%, 73% 2%, 79% 0.5%, 84% 1%, 89% 0%, 94% 2%, 98% 0.5%, 100% 1%, 100% 85%, 94% 91%, 88% 87%, 82% 93%, 74% 88%, 68% 94%, 60% 87%, 52% 92%, 46% 86%, 38% 93%, 30% 87%, 22% 91%, 14% 88%, 6% 94%, 0% 89%); }
+    .torn-font { font-family: 'Special Elite', monospace; letter-spacing: 0.5px; }
+    .navbar { position: sticky; top: 0; z-index: 100; background: rgba(253, 252, 249, 0.94); backdrop-filter: blur(12px); border-bottom: 1px solid #e2d9cf; padding: 1rem 0; }
+    .nav-container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .logo-wrapper { display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 32px; height: auto; }
+    .logo { font-family: 'Special Elite', monospace; font-size: 1.6rem; font-weight: 400; letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: #1a1a1a; transition: color 0.2s; }
+    .nav-links a:hover { color: #7e5c43; }
+    .hero { padding: 5rem 0 4rem; border-bottom: 1px solid #e2d9cf; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-text h1 { font-family: 'Special Elite', monospace; font-size: clamp(3.4rem, 8vw, 5.8rem); line-height: 1.1; font-weight: 400; }
+    .hero-text p { font-size: 1rem; color: #5c5c5c; margin: 1.6rem 0 2rem; max-width: 90%; }
+    .hero-image { background: #f5efe7; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04); }
+    .hero-image img { width: 100%; display: block; transition: transform 0.4s; }
+    .hero-image:hover img { transform: scale(1.02); }
+    .promo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 3rem 0 5rem; }
+    .promo-card { background: #ffffff; padding: 2rem; border: 1px solid #e2d9cf; transition: all 0.2s; }
+    .promo-card:hover { transform: translateY(-4px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08); }
+    .btn { display: inline-block; background: transparent; border: 1px solid #1a1a1a; padding: 0.6rem 1.5rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; color: #1a1a1a; text-decoration: none; transition: all 0.2s ease; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .btn-primary { background: #1a1a1a; border-color: #1a1a1a; color: white; }
+    .btn-primary:hover { background: #2c2c2c; transform: translateY(-2px); }
+    .btn-outline:hover { background: #1a1a1a; color: white; }
+    .filters-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; margin: 1.5rem 0 2rem; padding-bottom: 1rem; border-bottom: 1px solid #e2d9cf; }
+    .filter-group { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .filter-btn { background: transparent; border: 1px solid #d4cbc1; padding: 0.4rem 1rem; font-weight: 500; font-size: 0.75rem; cursor: pointer; color: #5c5c5c; border-radius: 40px; }
+    .filter-btn.active, .filter-btn:hover { background: #1a1a1a; border-color: #1a1a1a; color: white; }
+    .search-box { display: flex; align-items: center; gap: 0.6rem; border-bottom: 1px solid #d4cbc1; padding: 0.4rem 0.2rem; }
+    .search-box input { background: transparent; border: none; outline: none; font-size: 0.9rem; width: 200px; }
+    .countdown-section { background: rgba(255,252,245,0.6); backdrop-filter: blur(2px); border-top: 1px solid #e2d9cf; border-bottom: 1px solid #e2d9cf; padding: 2.8rem 1rem; text-align: center; margin: 1.5rem 0 3rem; }
+    .timer { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .timer-number { font-family: 'Special Elite', monospace; font-size: 3.2rem; font-weight: 400; }
+    .timer-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #5c5c5c; }
+    .fest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 2rem; margin: 2rem 0 5rem; }
+    .fest-card { background: #ffffff; border: 1px solid #e2d9cf; overflow: hidden; transition: transform 0.25s ease, box-shadow 0.25s; }
+    .fest-card:hover { transform: translateY(-6px); box-shadow: 0 18px 30px -12px rgba(0,0,0,0.12); }
+    .rip-1 { clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 97% 93%, 94% 97%, 90% 94%, 86% 98%, 82% 95%, 78% 97%, 73% 94%, 68% 98%, 63% 95%, 58% 97%, 53% 94%, 48% 96%, 43% 93%, 38% 97%, 33% 94%, 28% 98%, 22% 95%, 17% 97%, 12% 94%, 6% 98%, 3% 95%, 0% 97%); }
+    .rip-2 { clip-path: polygon(0% 0%, 100% 0%, 100% 96%, 96% 94%, 92% 97%, 88% 94%, 84% 96%, 79% 93%, 75% 97%, 70% 94%, 65% 98%, 60% 95%, 55% 96%, 50% 93%, 45% 97%, 40% 94%, 35% 96%, 30% 93%, 25% 97%, 19% 94%, 14% 98%, 9% 95%, 4% 96%, 0% 94%); }
+    .rip-3 { clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 95% 97%, 90% 93%, 85% 96%, 80% 94%, 75% 97%, 69% 93%, 64% 96%, 59% 94%, 54% 97%, 48% 93%, 43% 96%, 37% 94%, 32% 97%, 26% 93%, 21% 96%, 15% 94%, 9% 97%, 4% 94%, 0% 97%); }
+    .rip-4 { clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 96% 93%, 91% 96%, 86% 94%, 81% 97%, 76% 94%, 71% 96%, 66% 93%, 60% 97%, 55% 94%, 50% 96%, 45% 93%, 39% 97%, 34% 94%, 29% 96%, 23% 93%, 18% 97%, 12% 94%, 7% 96%, 3% 93%, 0% 96%); }
+    .rip-5 { clip-path: polygon(0% 0%, 100% 0%, 100% 96%, 97% 94%, 93% 97%, 89% 94%, 85% 96%, 81% 93%, 77% 97%, 72% 94%, 68% 96%, 63% 93%, 59% 97%, 54% 94%, 50% 96%, 45% 93%, 41% 97%, 36% 94%, 32% 96%, 27% 93%, 22% 97%, 17% 94%, 12% 96%, 7% 93%, 3% 97%, 0% 95%); }
+    .fest-img { height: 260px; overflow: hidden; background: #f3ede5; }
+    .fest-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+    .fest-card:hover .fest-img img { transform: scale(1.03); }
+    .fest-info { padding: 1.6rem; }
+    .fest-genre { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; color: #8e7a6b; }
+    .fest-name { font-family: 'Special Elite', monospace; font-size: 1.5rem; font-weight: 400; margin: 0.4rem 0 0.2rem; }
+    .fest-location { font-size: 0.85rem; color: #5c5c5c; margin-bottom: 0.6rem; }
+    .fest-date { font-size: 0.8rem; font-weight: 500; margin: 0.8rem 0 1rem; color: #4a3b32; }
+    .card-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+    .btn-small { padding: 0.4rem 1rem; font-size: 0.7rem; }
+    .waitlist-badge { font-size: 0.7rem; background: #f2ede6; padding: 0.25rem 0.8rem; border-radius: 40px; }
+    .win-ticket { background: #fcf8f3; border: 1px solid #e2d9cf; padding: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; margin: 3rem 0; }
+    .win-ticket h3 { font-family: 'Special Elite', monospace; font-size: 1.45rem; font-weight: 400; }
+    .modal, .booking-modal, .login-modal, .payment-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-content, .booking-content, .login-content, .payment-content { background: white; width: 90%; max-width: 720px; padding: 2rem; border: 1px solid #e2d9cf; position: relative; border-radius: 28px; max-height: 90vh; overflow-y: auto; font-family: 'Inter', sans-serif; font-weight: 400; }
+    .payment-content { max-width: 480px; }
+    .login-content { max-width: 480px; }
+    .close-modal, .close-booking, .close-login, .close-payment { position: absolute; top: 1rem; right: 1.2rem; font-size: 1.8rem; background: none; border: none; cursor: pointer; color: #5c5c5c; transition: 0.2s; }
+    .auth-tabs { display: flex; gap: 1rem; border-bottom: 1px solid #e2d9cf; margin-bottom: 1.5rem; }
+    .auth-tab { background: none; border: none; padding: 0.6rem 0; font-size: 1rem; font-weight: 500; cursor: pointer; color: #5c5c5c; width: 50%; font-family: 'Inter', sans-serif; border-bottom: 2px solid transparent; }
+    .auth-tab.active { color: #1a1a1a; border-bottom-color: #1a1a1a; }
+    .login-form input, .booking-form input, .payment-form input { width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ddd2c5; border-radius: 60px; font-family: 'Inter', sans-serif; background: #fefaf5; font-size: 0.9rem; }
+    .success-message { background: #d4edda; color: #155724; padding: 1rem; border-radius: 60px; margin-bottom: 1rem; text-align: center; }
+    .error-message { background: #f8d7da; color: #721c24; padding: 0.7rem; border-radius: 60px; margin-bottom: 1rem; text-align: center; }
+    .zone-map { background: #f4efe8; border-radius: 24px; padding: 1rem; margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.8rem; }
+    .zone-item { display: flex; align-items: center; justify-content: space-between; background: white; padding: 0.8rem 1.2rem; border-radius: 60px; cursor: pointer; transition: all 0.2s; border: 1px solid #e2d9cf; }
+    .zone-item.selected { background: #1a1a1a; color: white; border-color: #1a1a1a; }
+    .zone-item.selected .zone-price { color: #f5cf9b; }
+    .zone-color { width: 28px; height: 28px; border-radius: 28px; margin-right: 1rem; }
+    .zone-name { flex: 2; font-weight: 500; font-size: 0.9rem; }
+    .zone-price { font-weight: 500; margin-right: 0.5rem; }
+    .vip-button { background: linear-gradient(135deg, #c9a87b, #b58b54); border: none; color: white; }
+    footer { background: #fdfaf7; border-top: 1px solid #e2d9cf; padding: 3rem 0 2rem; margin-top: 4rem; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; }
+    .footer-col a { display: block; color: #5c5c5c; text-decoration: none; font-size: 0.75rem; margin-bottom: 0.6rem; }
+    .copyright { text-align: center; padding-top: 2rem; font-size: 0.7rem; color: #5c5c5c; border-top: 1px solid #e2d9cf; margin-top: 2rem; }
+    .back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; opacity: 0; transition: opacity 0.2s; pointer-events: none; color: white; text-decoration: none; z-index: 99; }
+    .back-to-top.show { opacity: 1; pointer-events: auto; }
+    @media (max-width: 780px) { .hero-grid { grid-template-columns: 1fr; } .promo-grid { grid-template-columns: 1fr; } .nav-links { flex-wrap: wrap; justify-content: center; } }
+  </style>
+</head>
+<body>
+<div class="content-wrapper">
+  <div class="navbar">
+    <div class="container nav-container">
+      <div class="logo-wrapper">
+        <img class="logo-icon" src="https://www.kindpng.com/picc/m/263-2633413_symbol-of-alathea-sun-drawings-hd-png-download.png" alt="sun symbol" />
+        <div class="logo">WORLDFEST</div>
+      </div>
+      <div class="nav-links">
+        <a href="#">DISCOVER</a>
+        <a href="#">LINEUP</a>
+        <a href="#">PASSES</a>
+        <a href="#">TRAVEL</a>
+        <a href="bookings.html">MY TICKETS</a>
+        <button class="btn btn-outline" id="globalLoginBtn">LOGIN</button>
+        <button class="btn btn-outline" id="globalLogoutBtn" style="display:none;">LOGOUT</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:4px; color:#5c5c5c;">Global festival guide 2026 · 2027</div>
+          <h1>Dreams<br>&amp; Sounds</h1>
+          <p>The world's most iconic festivals — from Coachella Valley to Glastonbury. Live music, art, and culture across continents.</p>
+          <div class="btn-group" style="margin-top:1.2rem;">
+            <a href="#" class="btn btn-primary" id="viewPassesBtn">Join Waitlist</a>
+            <a href="#" class="btn btn-outline" id="viewPassesBtn2">View Passes →</a>
+          </div>
+        </div>
+        <div class="hero-image torn-edge">
+          <img src="https://i.pinimg.com/1200x/df/89/9a/df899a4b564b6d521d3995ad4a4e84df.jpg" alt="Festival atmosphere" />
+        </div>
+      </div>
+    </div>
+
+    <div class="promo-grid">
+      <div class="promo-card torn-card-promo">
+        <i class="fa-solid fa-hotel"></i>
+        <h3>Bundle Hotel & Passes</h3>
+        <p>Pair festival passes with local hotels & shuttle add-ons.</p>
+        <a href="#" class="btn btn-outline">Purchase Now →</a>
+      </div>
+      <div class="promo-card torn-card-promo">
+        <i class="fa-regular fa-credit-card"></i>
+        <h3>2027 Payment Plan</h3>
+        <p>Lowest price guaranteed. $49 down, equal payments.</p>
+        <a href="#" class="btn btn-outline">Learn More →</a>
+      </div>
+    </div>
+
+    <div class="filters-bar">
+      <div class="filter-group" id="filterContainer">
+        <button class="filter-btn active" data-filter="all">All festivals</button>
+        <button class="filter-btn" data-filter="North America">North America</button>
+        <button class="filter-btn" data-filter="Europe">Europe</button>
+        <button class="filter-btn" data-filter="South America">South America</button>
+        <button class="filter-btn" data-filter="Asia">Asia</button>
+      </div>
+      <div class="search-box">
+        <i class="fa-regular fa-compass"></i>
+        <input type="text" id="searchFest" placeholder="Search festival or city...">
+      </div>
+    </div>
+
+    <div class="countdown-section">
+      <div class="countdown-title">NEXT MAJOR FESTIVAL</div>
+      <div class="timer">
+        <div class="timer-block"><div class="timer-number" id="cdDays">00</div><div class="timer-label">DAYS</div></div>
+        <div class="timer-block"><div class="timer-number" id="cdHours">00</div><div class="timer-label">HOURS</div></div>
+        <div class="timer-block"><div class="timer-number" id="cdMins">00</div><div class="timer-label">MINUTES</div></div>
+        <div class="timer-block"><div class="timer-number" id="cdSecs">00</div><div class="timer-label">SECONDS</div></div>
+      </div>
+      <div id="nextFestName">—</div>
+    </div>
+
+    <div id="festivalsGrid" class="fest-grid"></div>
+
+    <div class="win-ticket torn-card-promo">
+      <div>
+        <div style="margin-bottom:6px;">Limited contest</div>
+        <h3>WIN 1 OF 25 PAIRS OF TICKETS TO GLASTONBURY 2026</h3>
+        <p style="color:#5c5c5c; margin-top:8px;">Enter the draw for the ultimate festival experience.</p>
+      </div>
+      <a href="#" class="btn btn-primary">Join Now →</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col"><h4>EXPLORE</h4><a href="#">Festivals</a><a href="#">Lineup</a><a href="#">Passes</a></div>
+        <div class="footer-col"><h4>SUPPORT</h4><a href="#">Help Center</a><a href="#">Accessibility</a><a href="#">Health & Safety</a></div>
+        <div class="footer-col"><h4>COMPANY</h4><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy Policy</a></div>
+        <div class="footer-col"><h4>CONNECT</h4><a href="#">Newsletter</a><a href="#">Instagram</a><a href="#">YouTube</a></div>
+      </div>
+      <div class="copyright">© 2026 WORLD FEST — Global Festival Guide. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<div class="login-modal" id="authModal">
+  <div class="login-content">
+    <button class="close-login" id="closeAuthBtn">&times;</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-auth-tab="login">LOGIN</button>
+      <button class="auth-tab" data-auth-tab="register">REGISTER</button>
+    </div>
+    <div id="authFormContainer">
+      <div class="login-form" id="loginFormPanel">
+        <input type="email" id="authEmail" placeholder="Email address">
+        <input type="password" id="authPassword" placeholder="Password">
+        <button class="btn btn-primary" id="authLoginBtn">Sign in</button>
+      </div>
+      <div class="login-form" id="registerFormPanel" style="display:none;">
+        <input type="email" id="regEmail" placeholder="Email">
+        <input type="password" id="regPassword" placeholder="Password">
+        <input type="password" id="regConfirm" placeholder="Confirm password">
+        <button class="btn btn-primary" id="authRegisterBtn">Create account</button>
+      </div>
+    </div>
+    <div id="authMessage"></div>
+  </div>
+</div>
+
+<div class="booking-modal" id="bookingModal">
+  <div class="booking-content">
+    <button class="close-booking" id="closeBookingModalBtn">&times;</button>
+    <h2 id="bookingFestName" style="font-family:'Special Elite'; margin-bottom:1rem;">Book Tickets</h2>
+    <div class="zone-map" id="zoneMap">
+      <div class="zone-item" data-zone="Near the Stage" data-price="150"><div class="zone-color" style="background:#e63946;"></div><span class="zone-name">Near the Stage</span><span class="zone-price">$150</span></div>
+      <div class="zone-item" data-zone="Dancefloor" data-price="120"><div class="zone-color" style="background:#f4a261;"></div><span class="zone-name">Dancefloor</span><span class="zone-price">$120</span></div>
+      <div class="zone-item" data-zone="Back Rows" data-price="90"><div class="zone-color" style="background:#2a9d8f;"></div><span class="zone-name">Back Rows</span><span class="zone-price">$90</span></div>
+      <div class="zone-item vip-button" data-zone="VIP Experience" data-price="300"><div class="zone-color" style="background:#e9c46a;"></div><span class="zone-name">VIP Experience</span><span class="zone-price">$300</span></div>
+    </div>
+    <div class="booking-form">
+      <input type="text" id="fullname" placeholder="Full Name">
+      <input type="tel" id="phone" placeholder="Phone number (+......)">
+      <input type="email" id="emailBook" placeholder="Email" readonly style="background:#f0ede8;">
+      <button class="btn btn-primary" id="confirmBookingBtn">Book Ticket</button>
+    </div>
+    <div id="bookingMessage"></div>
+  </div>
+</div>
+
+<a href="#" class="back-to-top" id="backToTopBtn"><i class="fa-solid fa-arrow-up"></i></a>
+
+<script>
+  const festivalsData = [
+    { id: 1, name: "Coachella", city: "Indio", country: "USA", continent: "North America", date: "April 10-19, 2026", dateStart: "2026-04-10", genre: "Indie / Pop / Electronic", img: "https://electronicgroove.com/wp-content/uploads/2025/09/Coachella-Facebook.jpg", desc: "A surreal desert gathering where music, art, and fashion collide under the California sun." },
+    { id: 2, name: "Glastonbury", city: "Pilton", country: "UK", continent: "Europe", date: "June 24-28, 2026", dateStart: "2026-06-24", genre: "Multi-genre", img: "https://www.glastonburyfestivals.co.uk/wp-content/uploads/2025/12/aa2.jpg", desc: "Legendary fields of Somerset, where muddy boots and magical performances create lifelong memories." },
+    { id: 3, name: "Tomorrowland", city: "Boom", country: "Belgium", continent: "Europe", date: "July 17-26, 2026", dateStart: "2026-07-17", genre: "Electronic", img: "https://media.timeout.com/images/106294180/image.jpg", desc: "A fairy-tale realm of electronic music, stunning stages, and unity through dance." },
+    { id: 4, name: "Primavera Sound", city: "Barcelona", country: "Spain", continent: "Europe", date: "June 4-6, 2026", dateStart: "2026-06-04", genre: "Indie / Rock", img: "https://i.wfolio.com/x/uZ-vrbqj2EegGiEP2PkuXsznqV8gaoGg/cNtZ_MSjbOEP2eLU2__oPeAAQGn0NK35/yXhfxlFmzf7IvhdXN8iX4sWk8XnvAcjp/ShL61vdEEsTc2w8dO3IfYcuai0eO-RAj/lEFexIeFJ5s3NqpsF8fBAA.jpg", desc: "Sun-drenched coastal vibes meet cutting-edge indie and rock lineups." },
+    { id: 5, name: "Fuji Rock", city: "Niigata", country: "Japan", continent: "Asia", date: "July 24-26, 2026", dateStart: "2026-07-24", genre: "Rock / Indie", img: "https://www.uniquejapantours.com/wp-content/uploads/2019/05/FujiRock-1.png", desc: "Nestled in lush green mountains, Japan's most scenic and serene music festival." },
+    { id: 6, name: "Lollapalooza", city: "São Paulo", country: "Brazil", continent: "South America", date: "March 27-29, 2026", dateStart: "2026-03-27", genre: "Rock / Pop", img: "https://res.cloudinary.com/hits-photos-archive/image/upload/v1752695134/Aerial_by_Nathan_Zucker_for_Lollapalooza_2024_NZ3_9891_oehddt.jpg", desc: "Latin American energy meets global headliners in an electrifying weekend." },
+    { id: 7, name: "Sziget", city: "Budapest", country: "Hungary", continent: "Europe", date: "August 5-11, 2026", dateStart: "2026-08-05", genre: "Pop / Rock", img: "https://img03.rl0.ru/afisha/e1000x500i/daily.afisha.ru/uploads/images/d/45/d45443d7c89d4a56bb5f4e19b74fab1d.jpg", desc: "The Island of Freedom – a week-long celebration of art, music, and diversity on the Danube." },
+    { id: 8, name: "Burning Man", city: "Black Rock City", country: "USA", continent: "North America", date: "Aug 30 - Sep 7, 2026", dateStart: "2026-08-30", genre: "Art / Electronic", img: "https://lago-verde.ru/upload/medialibrary/30e/x5x0dxe5lr4fx3m639ul2ylwfigsg6c2/fo_nk_art_of_burning_man_156_05786_scaled.jpg", desc: "Radical self-expression in a temporary desert metropolis — art, fire, and community." },
+    { id: 9, name: "Ultra Music", city: "Miami", country: "USA", continent: "North America", date: "March 27-29, 2026", dateStart: "2026-03-27", genre: "EDM", img: "https://dj.ru/images/news/22/1003522_photo_855m500.jpg", desc: "Miami's waterfront explodes with the world's biggest electronic dance beats." },
+    { id: 10, name: "Rock in Rio", city: "Rio de Janeiro", country: "Brazil", continent: "South America", date: "September 10-19, 2026", dateStart: "2026-09-10", genre: "Rock / Pop", img: "https://soulbrasil.com/wp-content/uploads/2017/03/rock-in-rio.jpg", desc: "A colossal city of rock, where legends are born and crowds sing as one." },
+    { id: 11, name: "Exit Festival", city: "Novi Sad", country: "Serbia", continent: "Europe", date: "July 9-12, 2026", dateStart: "2026-07-09", genre: "Multi-genre", img: "https://www.billboard.com/wp-content/uploads/2020/07/EXIT-SUNRISE-2018_1600x1622px-billboard-1548-1594765609.jpg?w=1024", desc: "Inside a majestic fortress, Exit delivers sunrise sets and revolutionary spirit." },
+    { id: 12, name: "Roskilde", city: "Roskilde", country: "Denmark", continent: "Europe", date: "June 27 - July 4, 2026", dateStart: "2026-06-27", genre: "Rock / Pop", img: "https://flemmingbojensen.com/wp-content/uploads/2016/07/FlemmingBoJensen-blog-Roskilde-3560.jpg", desc: "Nordic non-profit giant, blending top-tier acts with art and activism." }
+  ];
+
+  let activeFilter = 'all';
+  let searchTerm = '';
+  let pendingBookingFest = null;
+  let selectedZone = null;
+  let currentUser = null;
+
+  const gridContainer = document.getElementById('festivalsGrid');
+  const authModal = document.getElementById('authModal');
+  const bookingModal = document.getElementById('bookingModal');
+  const globalLoginBtn = document.getElementById('globalLoginBtn');
+  const globalLogoutBtn = document.getElementById('globalLogoutBtn');
+  const closeAuthBtn = document.getElementById('closeAuthBtn');
+  const closeBookingBtn = document.getElementById('closeBookingModalBtn');
+  const authTabs = document.querySelectorAll('.auth-tab');
+  const loginPanel = document.getElementById('loginFormPanel');
+  const registerPanel = document.getElementById('registerFormPanel');
+  const authMessageDiv = document.getElementById('authMessage');
+  const bookingMessageDiv = document.getElementById('bookingMessage');
+  const emailBookField = document.getElementById('emailBook');
+  const phoneInput = document.getElementById('phone');
+  const confirmBookingBtn = document.getElementById('confirmBookingBtn');
+  const zoneItems = document.querySelectorAll('.zone-item');
+
+  function setupPhoneInput(inputElement) {
+    if (!inputElement) return;
+    inputElement.addEventListener('input', function(e) {
+      let val = this.value;
+      if (val === '') return;
+      if (!val.startsWith('+')) {
+        val = '+' + val.replace(/[^\d]/g, '');
+      } else {
+        let digits = val.substring(1).replace(/[^\d]/g, '');
+        val = '+' + digits;
+      }
+      this.value = val;
+    });
+  }
+  setupPhoneInput(phoneInput);
+
+  function getUsers() { return JSON.parse(localStorage.getItem('worldfest_users') || '[]'); }
+  function saveUsers(users) { localStorage.setItem('worldfest_users', JSON.stringify(users)); }
+  function getCurrentUser() { const email = localStorage.getItem('worldfest_current_user'); if (!email) return null; const users = getUsers(); return users.find(u => u.email === email) || null; }
+  function setCurrentUser(email) { if (email) localStorage.setItem('worldfest_current_user', email); else localStorage.removeItem('worldfest_current_user'); currentUser = getCurrentUser(); updateAuthUI(); }
+  function updateAuthUI() { if (currentUser) { globalLoginBtn.style.display = 'none'; globalLogoutBtn.style.display = 'inline-block'; globalLogoutBtn.innerText = `LOGOUT (${currentUser.email})`; } else { globalLoginBtn.style.display = 'inline-block'; globalLogoutBtn.style.display = 'none'; } }
+
+  function getTickets() { return JSON.parse(localStorage.getItem('worldfest_tickets') || '[]'); }
+  function saveTicket(ticket) { let all = getTickets(); all.push(ticket); localStorage.setItem('worldfest_tickets', JSON.stringify(all)); }
+  function generateId() { return Date.now() + '-' + Math.random().toString(36).substr(2, 8); }
+
+  const ripClasses = ['rip-1', 'rip-2', 'rip-3', 'rip-4', 'rip-5'];
+  function renderFestivals() {
+    let filtered = [...festivalsData];
+    if (activeFilter !== 'all') filtered = filtered.filter(f => f.continent === activeFilter);
+    if (searchTerm.trim() !== '') { const term = searchTerm.toLowerCase(); filtered = filtered.filter(f => f.name.toLowerCase().includes(term) || f.city.toLowerCase().includes(term)); }
+    gridContainer.innerHTML = filtered.map(fest => {
+      const randomRip = ripClasses[Math.floor(Math.random() * ripClasses.length)];
+      return `
+        <div class="fest-card ${randomRip}">
+          <div class="fest-img"><img src="${fest.img}" alt="${fest.name}" loading="lazy"></div>
+          <div class="fest-info">
+            <div class="fest-genre">${fest.genre}</div>
+            <div class="fest-name torn-font">${fest.name}</div>
+            <div class="fest-location">${fest.city}, ${fest.country}</div>
+            <div class="fest-date"><i class="fa-regular fa-calendar"></i> ${fest.date}</div>
+            <div class="card-actions">
+              <button class="btn btn-small btn-outline" onclick="openFestModal(${fest.id})">Explore</button>
+              <span class="waitlist-badge"><i class="fa-regular fa-bell"></i> Waitlist</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.openFestModal = function(id) {
+    const fest = festivalsData.find(f => f.id === id);
+    const modal = document.getElementById('festModal') || createFestModal();
+    document.getElementById('modalBody').innerHTML = `
+      <h2 style="font-family:'Special Elite'; font-size:1.8rem;">${fest.name}</h2>
+      <p style="color:#5c5c5c;">${fest.continent} · ${fest.date}</p>
+      <img src="${fest.img}" style="width:100%; max-height:260px; object-fit:cover; border:1px solid #e2d9cf; margin:1rem 0; border-radius:16px;">
+      <p style="font-style:italic; color:#7e5c43;">${fest.desc}</p>
+      <button class="btn btn-primary" id="getPassesFromModalBtn">Get passes</button>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('getPassesFromModalBtn').onclick = () => {
+      modal.style.display = 'none';
+      attemptBooking(fest.name);
+    };
+  };
+  function createFestModal() {
+    const div = document.createElement('div'); div.className = 'modal'; div.id = 'festModal';
+    div.innerHTML = `<div class="modal-content"><button class="close-modal" id="closeFestModalBtn">&times;</button><div id="modalBody"></div></div>`;
+    document.body.appendChild(div);
+    document.getElementById('closeFestModalBtn').onclick = () => div.style.display = 'none';
+    return div;
+  }
+
+  function attemptBooking(festName) {
+    if (currentUser) {
+      openBookingModal(festName);
+    } else {
+      pendingBookingFest = festName;
+      openAuthModal(() => {
+        if (currentUser) {
+          openBookingModal(pendingBookingFest);
+          pendingBookingFest = null;
+        }
+      });
+    }
+  }
+  function openBookingModal(festName) {
+    if (!currentUser) return;
+    document.getElementById('bookingFestName').innerHTML = `Book Tickets: ${festName}`;
+    emailBookField.value = currentUser.email;
+    selectedZone = null;
+    zoneItems.forEach(z => z.classList.remove('selected'));
+    document.getElementById('fullname').value = '';
+    document.getElementById('phone').value = '';
+    bookingMessageDiv.innerHTML = '';
+    bookingModal.style.display = 'flex';
+  }
+  zoneItems.forEach(zone => {
+    zone.addEventListener('click', function() {
+      zoneItems.forEach(z => z.classList.remove('selected'));
+      this.classList.add('selected');
+      selectedZone = { name: this.getAttribute('data-zone'), price: parseInt(this.getAttribute('data-price')) };
+    });
+  });
+  confirmBookingBtn.onclick = () => {
+    if (!currentUser) { bookingModal.style.display = 'none'; return; }
+    const name = document.getElementById('fullname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    if (!name || !phone || !selectedZone) {
+      bookingMessageDiv.innerHTML = '<div class="error-message">Please fill name, phone and select zone.</div>';
+      return;
+    }
+    const ticket = {
+      id: generateId(),
+      userEmail: currentUser.email,
+      festName: document.getElementById('bookingFestName').innerText.replace('Book Tickets: ', ''),
+      ticketType: selectedZone.name,
+      price: selectedZone.price,
+      fullName: name,
+      phone: phone,
+      bookingDate: new Date().toISOString(),
+      status: 'booked'
+    };
+    saveTicket(ticket);
+    bookingMessageDiv.innerHTML = '<div class="success-message">Ticket booked successfully! Go to MY TICKETS.</div>';
+    setTimeout(() => bookingModal.style.display = 'none', 1500);
+  };
+
+  function openAuthModal(callback) { authModal.style.display = 'flex'; authMessageDiv.innerHTML = ''; window._authCallback = callback; }
+  function closeAuthModal() { authModal.style.display = 'none'; window._authCallback = null; }
+  document.getElementById('authLoginBtn').onclick = () => {
+    const email = document.getElementById('authEmail').value.trim();
+    const pwd = document.getElementById('authPassword').value.trim();
+    const users = getUsers();
+    const user = users.find(u => u.email === email && u.password === pwd);
+    if (user) {
+      setCurrentUser(email);
+      authMessageDiv.innerHTML = '<div class="success-message">Login successful!</div>';
+      setTimeout(() => { closeAuthModal(); if (window._authCallback) window._authCallback(); }, 800);
+    } else {
+      authMessageDiv.innerHTML = '<div class="error-message">Invalid email or password.</div>';
+    }
+  };
+  document.getElementById('authRegisterBtn').onclick = () => {
+    const email = document.getElementById('regEmail').value.trim();
+    const pwd = document.getElementById('regPassword').value.trim();
+    const confirm = document.getElementById('regConfirm').value.trim();
+    if (!email || !pwd) { authMessageDiv.innerHTML = '<div class="error-message">Fill all fields.</div>'; return; }
+    if (pwd !== confirm) { authMessageDiv.innerHTML = '<div class="error-message">Passwords do not match.</div>'; return; }
+    const users = getUsers();
+    if (users.find(u => u.email === email)) { authMessageDiv.innerHTML = '<div class="error-message">Email already exists.</div>'; return; }
+    users.push({ email, password: pwd });
+    saveUsers(users);
+    setCurrentUser(email);
+    authMessageDiv.innerHTML = '<div class="success-message">Account created! You are now logged in.</div>';
+    setTimeout(() => { closeAuthModal(); if (window._authCallback) window._authCallback(); }, 800);
+  };
+  authTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      authTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const isLogin = tab.dataset.authTab === 'login';
+      loginPanel.style.display = isLogin ? 'block' : 'none';
+      registerPanel.style.display = isLogin ? 'none' : 'block';
+      authMessageDiv.innerHTML = '';
+    });
+  });
+  closeAuthBtn.onclick = closeAuthModal;
+  globalLoginBtn.onclick = () => openAuthModal(null);
+  globalLogoutBtn.onclick = () => { setCurrentUser(null); alert('Logged out.'); };
+  closeBookingBtn.onclick = () => bookingModal.style.display = 'none';
+  window.onclick = (e) => { if (e.target === authModal) closeAuthModal(); if (e.target === bookingModal) bookingModal.style.display = 'none'; };
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.getAttribute('data-filter');
+      renderFestivals();
+    });
+  });
+  document.getElementById('searchFest').addEventListener('input', (e) => { searchTerm = e.target.value; renderFestivals(); });
+  function scrollToFestivals() { document.querySelector('.fest-grid').scrollIntoView({ behavior: 'smooth' }); }
+  document.getElementById('viewPassesBtn2').addEventListener('click', (e) => { e.preventDefault(); scrollToFestivals(); });
+  document.getElementById('viewPassesBtn').addEventListener('click', (e) => { e.preventDefault(); scrollToFestivals(); });
+  function getNextFestival() { const today = new Date(); today.setHours(0,0,0,0); const upcoming = festivalsData.map(f => ({ ...f, dateObj: new Date(f.dateStart) })).filter(f => f.dateObj >= today).sort((a,b) => a.dateObj - b.dateObj); return upcoming[0] || festivalsData[0]; }
+  function updateCountdown() { const next = getNextFestival(); if (next) { const target = new Date(next.dateStart); const diff = target - new Date(); if (diff <= 0) { document.getElementById('cdDays').innerText = '00'; document.getElementById('cdHours').innerText = '00'; document.getElementById('cdMins').innerText = '00'; document.getElementById('cdSecs').innerText = '00'; document.getElementById('nextFestName').innerHTML = `${next.name} — happening now`; } else { const days = Math.floor(diff/86400000); const hours = Math.floor((diff%86400000)/3600000); const mins = Math.floor((diff%3600000)/60000); const secs = Math.floor((diff%60000)/1000); document.getElementById('cdDays').innerText = String(days).padStart(2,'0'); document.getElementById('cdHours').innerText = String(hours).padStart(2,'0'); document.getElementById('cdMins').innerText = String(mins).padStart(2,'0'); document.getElementById('cdSecs').innerText = String(secs).padStart(2,'0'); document.getElementById('nextFestName').innerHTML = `${next.name} · ${next.city}, ${next.country}`; } } }
+  window.addEventListener('scroll', () => { const btn = document.getElementById('backToTopBtn'); if (window.scrollY > 500) btn.classList.add('show'); else btn.classList.remove('show'); });
+  renderFestivals(); updateCountdown(); setInterval(updateCountdown, 1000); setCurrentUser(localStorage.getItem('worldfest_current_user') || null); if (!document.getElementById('festModal')) createFestModal();
+</script>
+</body>
+</html>
